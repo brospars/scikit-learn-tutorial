@@ -29,13 +29,13 @@ jobs:
 
     - name: Export html
       working-directory: ./slides
-      run: make
+      run: make && mkdir ../dist && mv *.html ../dist/
     - name: Export pdf
-      working-directory: ./slides
-      run: mkdir pdf && for f in *.html ; do remarkjs-pdf "$f" "pdf/${f%.html}.pdf"; done
+      working-directory: ./dist
+      run: for f in *.html ; do remarkjs-pdf "$f"; done
 
-    - name: Upload pdfs
+    - name: Upload distributed files
       uses: actions/upload-artifact@v1
       with:
-        name: pdf
-        path: slides/pdf
+        name: dist
+        path: dist/
