@@ -32,10 +32,10 @@ jobs:
       run: make
     - name: Export pdf
       working-directory: ./slides
-      run: for f in *.html ; do remarkjs-pdf "$f" ; done
+      run: mkdir pdf && for f in *.html ; do remarkjs-pdf "$f" "pdf/${f%.html}.pdf"; done
 
     - name: Upload pdfs
       uses: actions/upload-artifact@v1
       with:
-        name: slides
-        path: slides/*.pdf
+        name: pdf
+        path: slides/pdf
